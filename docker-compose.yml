@@ -1,0 +1,29 @@
+services:
+  app-01:
+    build: ./app
+    environment:
+      - INSTANCE_ID=app-01
+      - PORT=3000
+
+  app-02:
+    build: ./app
+    environment:
+      - INSTANCE_ID=app-02
+      - PORT=3000
+
+  app-03:
+    build: ./app
+    environment:
+      - INSTANCE_ID=app-03
+      - PORT=3000
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app-01
+      - app-02
+      - app-03
